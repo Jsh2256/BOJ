@@ -15,4 +15,5 @@ for i in range(n):
 for i in range(n):
     for j in range(m):
         print(list1[i][j],end=" ")
+        
     print(end="\n")
