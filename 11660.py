@@ -1,22 +1,27 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
-
 n, m = map(int, input().split())
-graph = []
+
+numbers = [[0] * (n + 1)]
+
 for _ in range(n):
-    line = list(map(int, input().split()))
-    graph.append(line)
-for a in range(m):
+    nums = [0] + [int(x) for x in input().split()]
+    numbers.append(nums)
+
+# prefix sum 행렬 만들기
+
+# 1. 행 별로 더하기
+for i in range(1, n + 1):
+    for j in range(1, n):
+        numbers[i][j + 1] += numbers[i][j]
+
+# 2. 열 별로 더하기
+for j in range(1, n + 1):
+    for i in range(1, n):
+        numbers[i + 1][j] += numbers[i][j]
+
+for _ in range(m):
     x1, y1, x2, y2 = map(int, input().split())
-    x1-=1
-    y1-=1
-    x2-=1
-    y2-=1
-    f = [0] * (1024)
-    for x in range(x1,x2+1):
-        g = [0] * (1024)
-        for y in range(y1, y2+1):
-            g[y] = g[y-1] + graph[x][y]
-        f[x] = f[x-1] + g[y2]
-    print(f[x2])
+    # (x1, y1)에서 (x2, y2)까지의 합
+    # p[x2][y2] - p[x1 - 1][y2] - p[x2][y1 - 1] + p[x1 - 1][y1 - 1]
+    print(numbers[x2][y2] - numbers[x1 - 1][y2] - numbers[x2][y1 - 1] + numbers[x1 - 1][y1 - 1])
