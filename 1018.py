@@ -16,7 +16,6 @@ input = sys.stdin.readline
 1. w로 시작할때 바꾼 개수 총
 """
 
-
 n, m = map(int, input().split())
 totalsum = []
 board = []
@@ -27,6 +26,4 @@ for i in range(n):
 for i in range(n):
     for j in range(m):
         if board[i][j] == 'W':
-
-
-print(board)
+			print(board)
